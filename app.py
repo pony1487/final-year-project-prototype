@@ -19,10 +19,9 @@ def menu():
         3.Lesson Material compare
         4.Timing compare
         5.Filter test
-        6.Chromagram test Electric Guitar Direct
-        7.Power chords Electric Guitar Direct
-        8.Analyse mic recording Chords
-        9.Analyse mic recording Notes
+        6.Power chords Electric Guitar Direct
+        7.Analyse mic recording Chords
+        8.Analyse mic recording Notes
         20.Exit/Quit
         """)
         ans = input("What would you like to do? ")
@@ -40,7 +39,6 @@ def menu():
             print("\n------------Frequences 440hz and 523.5hz sine waves using FFT----------------")
             # use fft to get frequency of sine wave
             wav_reader_one = WavFileReader(file_one)
-            wav_reader_one.plot_wav_file()
             wav_reader_one.print_frequency()
 
             wav_reader_two = WavFileReader(file_two)
@@ -63,15 +61,15 @@ def menu():
 
             lesson_wav_reader.play_file()
             print("Lesson Notes")
-            lesson_note_list = lesson_wav_reader.aubio_lib_frequnecy()
+            lesson_note_list = lesson_wav_reader.aubio_lib_frequency()
 
             correct_wav_reader.play_file()
             print("Played Correctly Notes")
-            correct_note_list = correct_wav_reader.aubio_lib_frequnecy()
+            correct_note_list = correct_wav_reader.aubio_lib_frequency()
 
             incorrect_wav_reader.play_file()
             print("Played Wrong Notes")
-            incorrect_note_list = incorrect_wav_reader.aubio_lib_frequnecy()
+            incorrect_note_list = incorrect_wav_reader.aubio_lib_frequency()
 
             print("wrong notes played: ")
             compare_notes_played(lesson_note_list, incorrect_note_list)
@@ -115,7 +113,7 @@ def menu():
 
         elif ans == "5":
             print("Apply filter")
-            lesson_file = "./mictest.wav"
+            lesson_file = "./audio/LessonTest/Notes/A_minor_scale_frag_1/A_minor_scale_frag_1_LESSON.wav"
             lesson_wav_reader = WavFileReader(lesson_file)
             lesson_wav_reader.play_file()
             lesson_wav_reader.audio_filter()
@@ -127,20 +125,9 @@ def menu():
 
             lesson_onset_list_in_seconds = lesson_wav_reader.plot_onset_for_direct_recording()
 
-            print("Correctly Played:")
-            print(lesson_onset_list_in_seconds)
-
-            lesson_wav_reader.plot_chromagram_with_librosa("Filtered Chromagram")
-            lesson_wav_reader.aubio_lib_frequnecy()
+            lesson_wav_reader.aubio_lib_frequency()
 
         elif ans == "6":
-            lesson_file = "./audio/LessonTest/Notes/OpenChords/E_Major_LESSON.wav"
-            lesson_wav_reader = WavFileReader(lesson_file)
-            freq_list = lesson_wav_reader.plot_spectogram_with_scipy("chord")
-
-            lesson_wav_reader.plot_chromagram_with_librosa("chord")
-
-        elif ans == "7":
             lesson_file = "./audio/LessonTest/Notes/PowerChords/E_E_G_A_LESSON.wav"
 
             correct_file = "./audio/LessonTest/Notes/PowerChords/E_E_G_A_CORRECT.wav"
@@ -150,19 +137,17 @@ def menu():
             lesson_wav_reader = WavFileReader(lesson_file)
             lesson_wav_reader.play_file()
             lesson_wav_reader.plot_chromagram_with_librosa("Lesson")
-            lesson_wav_reader.aubio_lib_frequnecy()
 
             correct_wav_reader = WavFileReader(correct_file)
             correct_wav_reader.play_file()
             correct_wav_reader.plot_chromagram_with_librosa("Correct")
-            correct_wav_reader.aubio_lib_frequnecy()
 
             incorrect_wav_reader = WavFileReader(incorrect_file)
             incorrect_wav_reader.play_file()
             incorrect_wav_reader.plot_chromagram_with_librosa("Incorrect")
-            incorrect_wav_reader.aubio_lib_frequnecy()
+            incorrect_wav_reader.aubio_lib_frequency()
 
-        elif ans == "8":
+        elif ans == "7":
             print("analyse mic recording chords")
             mic_lesson = "./audio/LessonTest/Acoustic/E_E_A_G_E_Lesson.wav"
             mic_lesson_wave_reader = WavFileReader(mic_lesson)
@@ -185,7 +170,7 @@ def menu():
             mic_incorrect_wave_reader.plot_chromagram_with_librosa("Incorrect")
             mic_incorrect_wave_reader.plot_onset_for_mic_recording()
 
-        elif ans == "9":
+        elif ans == "8":
             print("analyse mic recording notes")
             mic_lesson = "./audio/LessonTest/Acoustic/Ascending_Descending_LESSON.wav"
             mic_lesson_wave_reader = WavFileReader(mic_lesson)
@@ -196,18 +181,17 @@ def menu():
             mic_incorrect = "./audio/LessonTest/Acoustic/Ascending_Descending_ONEWRONG.wav"
             mic_incorrect_wave_reader = WavFileReader(mic_incorrect)
 
-            #mic_lesson_wave_reader.play_file()
-            mic_lesson_wave_reader.plot_wav_file()
-            lesson_note_list = mic_lesson_wave_reader.aubio_lib_frequnecy()
-            #mic_lesson_wave_reader.plot_onset_for_mic_recording()
+            mic_lesson_wave_reader.play_file()
+            lesson_note_list = mic_lesson_wave_reader.aubio_lib_frequency()
+            mic_lesson_wave_reader.plot_onset_for_mic_recording()
 
-            #mic_correct_wave_reader.play_file()
-            correct_note_list = mic_correct_wave_reader.aubio_lib_frequnecy()
-            #mic_correct_wave_reader.plot_onset_for_mic_recording()
+            mic_correct_wave_reader.play_file()
+            correct_note_list = mic_correct_wave_reader.aubio_lib_frequency()
+            mic_correct_wave_reader.plot_onset_for_mic_recording()
 
-            #mic_incorrect_wave_reader.play_file()
-            incorrect_note_list = mic_incorrect_wave_reader.aubio_lib_frequnecy()
-            #mic_incorrect_wave_reader.plot_onset_for_mic_recording()
+            mic_incorrect_wave_reader.play_file()
+            incorrect_note_list = mic_incorrect_wave_reader.aubio_lib_frequency()
+            mic_incorrect_wave_reader.plot_onset_for_mic_recording()
 
             compare_notes_played(lesson_note_list, incorrect_note_list)
 

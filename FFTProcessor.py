@@ -14,6 +14,7 @@ class FFTProcessor:
     """
     This class was originally used to try and determine the frequency of notes but proved that it would not work.
     See the interim report for more details regarding The Missing Fundamental Problem.
+    See the interim report for more details regarding The Missing Fundamental Problem.
     There may be a use for this class in future pending further research.
     """
     def __init__(self, filename, chunk):
@@ -37,8 +38,6 @@ class FFTProcessor:
 
         freq = freqs[idx]
         count = 0
-
-        f = open("freqs.txt", "w")
 
         freq_in_hertz = abs(freq * sample_rate)
         return freq_in_hertz

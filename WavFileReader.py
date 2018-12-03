@@ -89,22 +89,6 @@ class WavFileReader:
         fft_processor = FFTProcessor(self.filename, self.CHUNK)
         print("Frequency: " + str(fft_processor.get_frequency()))
 
-    def plot_spectogram_with_scipy(self, lesson_name):
-        """
-        Taken from https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.spectrogram.
-        This was used for testing a different libary for chord detection.
-        :param lesson_name:
-        :return:
-        """
-        y, sr = librosa.load(self.filename)
-        f, t, Sxx = signal.spectrogram(y, sr)
-
-        plt.figure(f, t)
-        plt.ylabel('Frequency [Hz]')
-        plt.xlabel('Time [sec]')
-        plt.show()
-        return f
-
     def plot_chromagram_with_librosa(self, lesson_name):
         """
         Taken from https://librosa.github.io/librosa/
@@ -145,7 +129,7 @@ class WavFileReader:
         fmt_string = "read {:d} frames at {:d}Hz from {:s}"
         print(fmt_string.format(total_frames, s.samplerate, self.filename))
 
-    def aubio_lib_frequnecy(self):
+    def aubio_lib_frequency(self):
         """
         Taken from https://github.com/aubio/aubio/tree/master/python/demos and slightly modified
         This uses the pitch method in aubio. It reads the audio file and gives a list of frequencies and the proability
@@ -301,8 +285,7 @@ class WavFileReader:
         o = onset("default", win_s, hop_s, samplerate)
 
         # One threshold does not seem to work for all cases
-        # set threshold so it doesnt pick up string noise or movement 0.5 is too low, 5.0 is too big
-        o.set_threshold(0.50)
+        o.set_threshold(0.45)
 
         # list of when peaks happen at time t(seconds)
         onset_time_list = []
